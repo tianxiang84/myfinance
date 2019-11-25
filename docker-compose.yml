@@ -1,7 +1,16 @@
 version: '3.3'
 services:
         web:
-                image: php:7.3-apache
+                build:
+                        context: ./php
+                        dockerfile: Dockerfile
+                container_name: php73
+                depends_on:
+                        - db
+                volumes:
+                        - ./php:/var/www/html
+                ports:
+                        - 8000:80
         db:
                 image: mysql:8.0
                 container_name: mysql8
