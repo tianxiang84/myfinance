@@ -1,14 +1,44 @@
 <?php
-$host = 'db'; // service name from docker-compose.yml
-$user = 'devuser';
-$password = 'devpass';
-$db = 'test_db';
+// Connection to the database
+error_reporting(0);
+require 'connect.php';
 
-$conn = new mysqli($host,$user,$password,$db);
-if($conn->connect_error){
-	echo 'Connection failed' . $conn->connection_error;
+// Query for a table
+//$result = $conn->query("SELECT * FROM Transactions") or die($conn->error);
+//print_r($result);
+//if($result->num_rows) {
+//	echo 'Yay';
+//}
+if($result = $db->query("SELECT * FROM Transactions")) {
+	//print_r($result);
+	if($count = $result->num_rows) { //if there is at least 1 row
+		echo '<pre>', 'Number of rows:', $count, '</pre>';
+
+    //$rows = $result->fetch_all(MYSQLI_ASSOC);
+	  //echo '<pre>', print_r($rows), '</pre>';
+		//foreach ($rows as $row) {
+		//	echo $row['ID'], '<br>';
+		//}
+    $net_income = 0.0;
+    while($row = $result->fetch_object()){
+			echo $row->ID, ' ', $row->Descriptions, ' ($', $row->Amount, ') ', '<br>';
+			$net_income = $net_income + $row->Amount;
+
+	  }
+		echo '<pre>', 'Net income:', ' $', $net_income, '</pre>';
+
+	  $result->free();
+	}
+} else {
+	die($conn->error);
 }
-echo 'Sucessfully connected to MYSQL';
 
-echo nl2br("\nNew line \n New line.");
+
+if($result = $db->query("SELECT * FROM Transactions")) {
+
+} else {
+	die($conn->error);
+}
+//echo nl2br("\nNew line \n New line.");
+//echo nl2br("\nNew line \n New line.");
 ?>
