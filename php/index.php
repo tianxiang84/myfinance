@@ -3,6 +3,10 @@
 error_reporting(0);
 require 'connect.php';
 
+require 'create_table.php';
+
+die('Purposely killed');
+
 // Query for a table
 //$result = $conn->query("SELECT * FROM Transactions") or die($conn->error);
 //print_r($result);
