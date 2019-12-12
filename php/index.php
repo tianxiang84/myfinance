@@ -3,8 +3,10 @@
 error_reporting(0);
 require 'connect.php';
 
-require 'create_table.php';
+require 'graphics.php';
+die('Purposely killed');
 
+require 'create_table.php';
 die('Purposely killed');
 
 // Query for a table
